@@ -28,26 +28,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-- Crear base de datos a partir de las migraciones
-```bash
-python manage.py migrate
-```
-
-- Crear super-usuario
-```bash
-python manage.py createsuperuser
-```
-
-
-- Crear estáticos
-```bash
-python manage.py collectstatic
-```
-
-- Ejecutar proyecto
-```bash
-python manage.py runserver
-```
 # Comandos útiles para Django
 
 ## Crear proyecto
