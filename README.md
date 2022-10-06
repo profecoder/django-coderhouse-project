@@ -12,8 +12,8 @@ git checkout class_17_Django_I
 
 - Crear y activar entorno virtual (Windows)
 ```bash
-C:\>python -m venv c:\ruta\al\entorno\virtual
-C:\>c:\ruta\al\entorno\virtual\scripts\activate.bat
+python -m venv venv
+.\venv\Scripts\activate
 ```
 
 - Crear y activar entorno virtual (Linux)
