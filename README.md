@@ -24,8 +24,29 @@ source venv/bin/activate
 
 - Instalar las dependencias del proyecto
 ```bash
-
 pip install -r requirements.txt
+```
+
+- Como ya tenemos el proyecto `my_blog` creado navegamos hacia la carpeta del proyecto `my_blog`
+```bash
+cd my_blog
+```
+
+- Se ejecuta la migración para crear la base de datos con la que trabajará nuestro proyecto de Django
+```bash
+python manage.py migrate
+```
+
+- Se levanta el servidor de Django que expone el servicio por el localhost en el puerto 8000 por defecto `http://127.0.0.1:8000/`
+```bash
+python manage.py runserver
+```
+
+- Es hora de ir al navegador y en una pestaña nueva navegar hacia `http://127.0.0.1:8000/hello-world/` o `http://localhost:8000/hello-world/` para visualizar el Hola Mundo que hicimos durante la clase. Es recomendable ir hacia los demás endpoints (ver `my_blog/urls.py`) creados durante la clase para experimentar con ellos y afianzar los conocimientos vistos. 
+
+- Si queremos levantar el servidor de Django en otro puerto lo especificamos de la siguente manera. e.g. `http://127.0.0.1:8001/`
+```bash
+python manage.py runserver 8001
 ```
 
 # Comandos útiles para Django
@@ -34,6 +55,15 @@ pip install -r requirements.txt
 ```bash
 django-admin startproject <nombre del proyecto>
 cd <nombre del proyecto>
+```
+## Crear la base de datos del proyecto
+```bash
+python manage.py migrate
+```
+## Actualizar la base de datos del proyecto con cambios en nuestros modelos
+```bash
+python manage.py makemigrations
+python manage.py migrate
 ```
 ## Crear aplicación a un proyecto
 ```bash
