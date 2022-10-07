@@ -20,6 +20,7 @@ from my_blog.views import (
     title,
     my_name_is,
     calculate_age,
+    my_template,
 )
 
 urlpatterns = [
@@ -28,4 +29,5 @@ urlpatterns = [
     path('title/', title),
     path('my-name-is/<str:name>/<int:age>/', my_name_is),
     path('calculate-age/<str:birth_day>/', calculate_age),
+    path('template', my_template),
 ]

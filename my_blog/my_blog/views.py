@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.http import HttpResponse
+from django.template import Template, Context
 
 
 def hello_world(request):
@@ -28,3 +29,18 @@ def calculate_age(request, birth_day):
         days=int((delta_time.days % days_by_year) % 30),
     )
     return HttpResponse(http_response)
+
+
+def my_template(request):
+    my_html = open('C:/Users/jfpin/Documents/coder_projects/borrar/django-coderhouse-project/my_blog/templates/template.html')
+
+    template = Template(my_html.read())#Se carga en memoria nuestro documento, template1
+    ##OJO importar template y contex, con: from django.template import Template, Context
+
+    my_html.close() #Cerramos el archivo
+
+    context = Context() #EN este caso no hay nada ya que no hay parametros, IGUAL hay que crearlo
+
+    render = template.render(context) #Aca renderizamos la plantilla en documento
+
+    return HttpResponse(render)
