@@ -2,7 +2,7 @@
 
 - Clonar el proyecto y cambiar de rama
 ```bash
-git clone git@github.com:profecoder/django-coderhouse-project.git
+git clone https://github.com/profecoder/django-coderhouse-project.git
 
 cd django-coderhouse-project
 
