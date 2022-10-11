@@ -56,7 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            "C:/Users/jfpin/Documents/coder_projects/after_django/django-coderhouse-project/my_blog/templates/"
+            "C:/Users/jfpin/Documents/coder_projects/django-coderhouse-project/my_blog/templates/"
         ],
         'APP_DIRS': True,
         'OPTIONS': {

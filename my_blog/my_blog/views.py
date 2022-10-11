@@ -39,32 +39,15 @@ def calculate_age(request, birth_day):
 
 def my_template(request):
     my_html = open(
-        "C:/Users/jfpin/Documents/coder_projects/after_django/django-coderhouse-project/my_blog/templates/template.html"
+        "C:/Users/jfpin/Documents/coder_projects/django-coderhouse-project/my_blog/templates/template.html"
     )
 
     template = Template(
-        my_html.read().encode("latin-1").decode("utf-8") # .encode("latin-1").decode("utf-8") se usa para activar las tildes o acentos del español en Windows
-    )  # Se carga en memoria nuestro documento, template1
-    ##OJO importar template y contex, con: from django.template import Template, Context
-
-    my_html.close()  # Cerramos el archivo
-
-    context = (
-        Context()
-    )  # En este caso no hay nada ya que no hay parametros, IGUAL hay que crearlo
-
-    render = template.render(context)  # Aca renderizamos la plantilla en documento
-
-    return HttpResponse(render)
-
-
-def my_template(request):
-    my_html = open(
-        "C:/Users/jfpin/Documents/coder_projects/after_django/django-coderhouse-project/my_blog/templates/template.html"
-    )
-
-    template = Template(
-        my_html.read().encode("latin-1").decode("utf-8") # .encode("latin-1").decode("utf-8") se usa para activar las tildes o acentos del español en Windows
+        my_html.read()
+        .encode("latin-1")
+        .decode(
+            "utf-8"
+        )  # .encode("latin-1").decode("utf-8") se usa para leer correctamente las tildes o acentos del español en Windows
     )  # Se carga en memoria nuestro documento, template1
     ##OJO importar template y contex, con: from django.template import Template, Context
 
@@ -83,8 +66,8 @@ def my_template(request):
         },
     }
 
-    context = (
-        Context(context_dict)
+    context = Context(
+        context_dict
     )  # Le paso el diccionario al contexto con el nombre y apellido
 
     render = template.render(context)  # Aca renderizamos la plantilla en documento
@@ -94,7 +77,7 @@ def my_template(request):
 
 def template_loader(request, name, last_name):
 
-    template = loader.get_template('template_loader.html')
+    template = loader.get_template("template_loader.html")
 
     context_dict = {
         "name": name,
