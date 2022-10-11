@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from course.views import create_course
 from my_blog.views import (
     hello_world,
     title,
     my_name_is,
     calculate_age,
     my_template,
+    template_loader,
 )
 
 urlpatterns = [
@@ -30,4 +33,6 @@ urlpatterns = [
     path('my-name-is/<str:name>/<int:age>/', my_name_is),
     path('calculate-age/<str:birth_day>/', calculate_age),
     path('template', my_template),
+    path('template_loader/<str:name>/<str:last_name>', template_loader),
+    path('create_course/<str:name>/<int:code>', create_course),
 ]
