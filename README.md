@@ -6,7 +6,7 @@ git clone https://github.com/profecoder/django-coderhouse-project.git
 
 cd django-coderhouse-project
 
-git checkout class_17_Django_I
+git checkout class_18_Django_II
 
 ```
 
