@@ -32,10 +32,11 @@ def calculate_age(request, birth_day):
 
 
 def my_template(request):
-    my_html = open('C:/Users/jfpin/Documents/coder_projects/borrar/django-coderhouse-project/my_blog/templates/template.html')
+    my_html = open("C:/Users/jfpin/Documents/coder_projects/after_django/django-coderhouse-project/my_blog/templates/template.html")
 
-    template = Template(my_html.read())#Se carga en memoria nuestro documento, template1
+    template = Template(my_html.read().encode("latin-1").decode("utf-8")) #Se carga en memoria nuestro documento, template1
     ##OJO importar template y contex, con: from django.template import Template, Context
+    # .encode("latin-1").decode("utf-8") se usa para activar las tildes o acentos del español en Windows
 
     my_html.close() #Cerramos el archivo
 
