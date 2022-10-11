@@ -1,5 +1,17 @@
 # Instrucciones para ejecutar este proyecto
 
+- Crear Directorio del proyecto My blog
+
+1. Abrir Git Bash para `Windows` o una terminal para `Linux/Unix`.
+
+2. Crear directorio de trabajo para el proyecto de curso 
+```bash
+cd
+mkdir -p Documents/coder_projects
+cd Documents/coder_projects
+ls 
+```
+
 - Clonar el proyecto y cambiar de rama
 ```bash
 git clone https://github.com/profecoder/django-coderhouse-project.git
@@ -7,7 +19,6 @@ git clone https://github.com/profecoder/django-coderhouse-project.git
 cd django-coderhouse-project
 
 git checkout class_18_Django_II
-
 ```
 
 - Crear y activar entorno virtual (Windows)
@@ -32,10 +43,27 @@ pip install -r requirements.txt
 cd my_blog
 ```
 
+- Para crear un proyecto nuevo ejecutar **No ejecutar durante la clase en vivo**
+```bash
+cd ~/Documents/coder_projects/
+django-admin startproject "nombre_del_proyecto"
+```
+
+- Se crean las migraciones que son una paltilla para crear la base de datos con la que trabajará nuestro proyecto de Django
+```bash
+python manage.py makemigrations
+```
+
 - Se ejecuta la migración para crear la base de datos con la que trabajará nuestro proyecto de Django
 ```bash
 python manage.py migrate
 ```
+
+- Se crea el super usuario para nuestro proyecto de Django
+```bash
+python manage.py createsuperuser
+```
+Ingrese `Username`, `Email address` y `Password` 
 
 - Se levanta el servidor de Django que expone el servicio por el localhost en el puerto 8000 por defecto `http://127.0.0.1:8000/`
 ```bash
