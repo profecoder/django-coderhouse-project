@@ -21,6 +21,12 @@ cd django-coderhouse-project
 git checkout class_18_Django_II
 ```
 
+- Abrimos VSCode y una terminal allí
+```bash
+code .
+```
+En seguida en VSCode damos `Ctrl+j` o `Terminal/New Terminal` y en esta terminal seguimos ejecutando los comandos que siguen a continuación.
+
 - Crear y activar entorno virtual (Windows)
 ```bash
 python -m venv venv
@@ -43,13 +49,7 @@ pip install -r requirements.txt
 cd my_blog
 ```
 
-- Para crear un proyecto nuevo ejecutar **No ejecutar durante la clase en vivo**
-```bash
-cd ~/Documents/coder_projects/
-django-admin startproject "nombre_del_proyecto"
-```
-
-- Se crean las migraciones que son una paltilla para crear la base de datos con la que trabajará nuestro proyecto de Django
+- Se crean las migraciones que son una "plantilla" para crear la base de datos con la que trabajará nuestro proyecto de Django
 ```bash
 python manage.py makemigrations
 ```
@@ -70,6 +70,22 @@ Ingrese `Username`, `Email address` y `Password`
 python manage.py runserver
 ```
 
+- Recordar que para que cargen de manera adecuada los templates deben actualizar su nombre de usuario en el path que está en el módulo `settings.py` ubicado en `my_blog\my_blog\settings.py`
+
+Para Windows
+```bash
+        'DIRS': [
+            "C:/Users/<nombre_usuario>/Documents/coder_projects/django-coderhouse-project/my_blog/templates/"
+        ],
+```
+
+Para Linux
+```bash
+        'DIRS': [
+            "/home/<nombre_usuario>/Documents/coder_projects/django-coderhouse-project/my_blog/templates/"
+        ],
+```
+
 - Es hora de ir al navegador y en una pestaña nueva navegar hacia `http://127.0.0.1:8000/hello-world/` o `http://localhost:8000/hello-world/` para visualizar el Hola Mundo que hicimos durante la clase. Es recomendable ir hacia los demás endpoints (ver `my_blog/urls.py`) creados durante la clase para experimentar con ellos y afianzar los conocimientos vistos. 
 
 - Si queremos levantar el servidor de Django en otro puerto lo especificamos de la siguente manera. e.g. `http://127.0.0.1:8001/`
@@ -84,18 +100,15 @@ python manage.py runserver 8001
 django-admin startproject <nombre del proyecto>
 cd <nombre del proyecto>
 ```
-## Crear la base de datos del proyecto
+## Crear una aplicación en un proyecto
 ```bash
-python manage.py migrate
+python manage.py startapp <nombre del app>
 ```
 ## Actualizar la base de datos del proyecto con cambios en nuestros modelos
+Se realiza en dos pasos la creación de las migraciones, una por aplicación, y luego se realiza la creación de las tablas en la base de datos.
 ```bash
 python manage.py makemigrations
 python manage.py migrate
-```
-## Crear aplicación a un proyecto
-```bash
-python manage.py startapp <nombre del app>
 ```
 # Comandos básicos para Git
 
