@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'course',
     'student',
     'profesor',
+    'home',
 ]
 
 MIDDLEWARE = [

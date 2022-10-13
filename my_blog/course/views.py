@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.template import loader
 
 from course.models import Course
@@ -14,3 +15,15 @@ def create_course(request, name: str, code: int):
     context_dict = {"course": course}
     render = template.render(context_dict)
     return HttpResponse(render)
+
+
+def courses(request):
+    courses = Course.objects.all()
+
+    context_dict = {"courses": courses}
+
+    return render(
+        request=request,
+        context=context_dict,
+        template_name="course/course_list.html",
+    )
