@@ -4,7 +4,7 @@ from django.template import loader
 from course.models import Course
 
 
-def create_course(request, name: str = "course", code: int = 0):
+def create_course(request, name: str, code: int):
 
     template = loader.get_template("template_course.html")
 
