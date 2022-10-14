@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.template import loader
 
 from course.models import Course
+from course.models import Homework
 
 
 def create_course(request, name: str, code: int):
@@ -26,4 +27,16 @@ def courses(request):
         request=request,
         context=context_dict,
         template_name="course/course_list.html",
+    )
+
+
+def homeworks(request):
+    homeworks = Homework.objects.all()
+
+    context_dict = {"homeworks": homeworks}
+
+    return render(
+        request=request,
+        context=context_dict,
+        template_name="course/homework_list.html",
     )

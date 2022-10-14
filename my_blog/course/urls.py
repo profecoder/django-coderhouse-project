@@ -5,4 +5,5 @@ from course import views
 app_name = "course"
 urlpatterns = [
     path("courses", views.courses, name="course-list"),
+    path("homeworks", views.homeworks, name="homework-list"),
 ]

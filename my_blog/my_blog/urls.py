@@ -32,4 +32,5 @@ urlpatterns = [
     path("create_student/<str:name>/<str:last_name>/<str:email>", create_student),
     path("course/", include("course.urls")),
     path("student/", include("student.urls")),
+    path("profesor/", include("profesor.urls")),
 ]

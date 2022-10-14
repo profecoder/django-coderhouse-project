@@ -17,9 +17,6 @@ def create_student(request, name: str, last_name: str, email: str):
     return HttpResponse(render)
 
 
-
-
-
 def students(request):
     students = Student.objects.all()
 
