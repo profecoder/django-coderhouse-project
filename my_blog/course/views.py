@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -14,6 +15,18 @@ def create_course(request, name: str, code: int):
     course.save()  # save into the DB
 
     context_dict = {"course": course}
+    render = template.render(context_dict)
+    return HttpResponse(render)
+
+
+def create_homework(request, name: str, due_date: str):
+
+    template = loader.get_template("template_homework.html")
+    due_date = datetime.strptime(due_date, "%Y-%m-%d")
+    homework = Homework(name=name, due_date=due_date, is_delivered=False)
+    homework.save()  # save into the DB
+
+    context_dict = {"homework": homework}
     render = template.render(context_dict)
     return HttpResponse(render)
 

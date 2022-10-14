@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from course.views import create_course
+from course.views import create_course, create_homework
 from profesor.views import create_profesor
 from student.views import create_student
 
@@ -30,6 +30,7 @@ urlpatterns = [
         create_profesor,
     ),
     path("create_student/<str:name>/<str:last_name>/<str:email>", create_student),
+    path("create_homework/<str:name>/<str:due_date>", create_homework),
     path("course/", include("course.urls")),
     path("student/", include("student.urls")),
     path("profesor/", include("profesor.urls")),
