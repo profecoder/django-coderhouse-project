@@ -17,6 +17,7 @@ En seguida en VSCode damos `Ctrl+j` o `Terminal/New Terminal` y en esta terminal
 ```bash
 git pull
 git checkout class_19_playground_I
+rm my_blog\db.sqlite3
 ```
 
 ### 5. Activar entorno virtual
