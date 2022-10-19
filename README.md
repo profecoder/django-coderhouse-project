@@ -1,89 +1,72 @@
 # Instrucciones para ejecutar este proyecto
 
+- Crear Directorio del proyecto My blog
+
 ### 1. Abrir Git Bash para `Windows` o una terminal para `Linux/Unix`.
 
-### 2. Ir al directorio de trabajo para el proyecto de curso 
+### 2. Crear directorio de trabajo para el proyecto de curso 
 ```bash
-cd ~/Documents/coder_projects/django-coderhouse-project
+cd
+mkdir -p Documents/coder_projects
+cd Documents/coder_projects
+ls 
 ```
 
-### 3. Abrir VS Code y una terminal allí
+- Clonar el proyecto y cambiar de rama
 ```bash
-code .
-```
-En seguida en VSCode damos `Ctrl+j` o `Terminal/New Terminal` y en esta terminal seguimos ejecutando los comandos que siguen a continuación.
+git clone https://github.com/profecoder/django-coderhouse-project.git
 
-### 4. Traer los cambios del repositorio remoto GitHub y cambiar de rama
-```bash
-git pull
-git checkout class_19_playground_I
-rm my_blog\db.sqlite3
+cd django-coderhouse-project
+
+git checkout class_18_Django_II
 ```
 
-### 5. Activar entorno virtual
+### 3. Crear y activar entorno virtual
 (Windows)
 ```bash
+python -m venv venv
 .\venv\Scripts\activate
 ```
 
 (Linux)
 ```bash
+python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 6. Instalar las dependencias del proyecto
+### 4. Instalar las dependencias del proyecto
 ```bash
 pip install -r requirements.txt
 ```
 
-### 7. Navegamos hacia la carpeta del proyecto `my_blog`
+### 5. Navegamos hacia la carpeta del proyecto `my_blog`
 ```bash
 cd my_blog
 ```
 
-### 8. Se crean las migraciones que son una "plantilla" para crear la base de datos con la que trabajará nuestro proyecto de Django
+### 6. Se crean las migraciones que son una "plantilla" para crear la base de datos con la que trabajará nuestro proyecto de Django
 ```bash
 python manage.py makemigrations
 ```
 
-### 9. Se ejecuta la migración para crear la base de datos con la que trabajará nuestro proyecto de Django
+### 7. Se ejecuta la migración para crear la base de datos con la que trabajará nuestro proyecto de Django
 ```bash
 python manage.py migrate
 ```
 
-### 10. Se crea el super usuario para nuestro proyecto de Django, **Solo si no se ha creado**
+### 8. Se crea el super usuario para nuestro proyecto de Django, **Solo si no se ha creado**
 ```bash
 python manage.py createsuperuser
 ```
 Ingrese `Username`, `Email address` y `Password` 
 
-### 11. Se levanta el servidor de Django que expone el servicio por el localhost en el puerto 8000 por defecto `http://127.0.0.1:8000/`
+### 9. Se levanta el servidor de Django que expone el servicio por el localhost en el puerto 8000 por defecto `http://127.0.0.1:8000/`
 ```bash
 python manage.py runserver
 ```
 
-- Recordar que para que cargen de manera adecuada los templates deben actualizar su nombre de usuario en el path que está en el módulo `settings.py` ubicado en `my_blog\my_blog\settings.py`
-
-Para Windows
-```bash
-        'DIRS': [
-            "C:/Users/<nombre_usuario>/Documents/coder_projects/django-coderhouse-project/my_blog/templates/"
-        ],
-```
-
-Para Linux
-```bash
-        'DIRS': [
-            "/home/<nombre_usuario>/Documents/coder_projects/django-coderhouse-project/my_blog/templates/"
-        ],
-```
-
 - Es hora de ir al navegador y en una pestaña nueva navegar hacia `http://127.0.0.1:8000/hello-world/` o `http://localhost:8000/hello-world/` para visualizar el Hola Mundo que hicimos durante la clase. Es recomendable ir hacia los demás endpoints (ver `my_blog/urls.py`) creados durante la clase para experimentar con ellos y afianzar los conocimientos vistos. 
 
-- Si queremos levantar el servidor de Django en otro puerto lo especificamos de la siguente manera. e.g. `http://127.0.0.1:8001/`
-```bash
-python manage.py runserver 8001
-```
 
 # Comandos útiles para Django
 
