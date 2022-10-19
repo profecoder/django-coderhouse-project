@@ -11176,7 +11176,7 @@ header.masthead .post-heading .subheading {
 }
 header.masthead .post-heading .meta {
   font-size: 1.25rem;
-  font-weight: 300;
+  font-weight: 700;
   font-style: italic;
   font-family: "Lora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -11185,8 +11185,8 @@ header.masthead .post-heading .meta a {
 }
 @media (min-width: 992px) {
   header.masthead {
-    padding-top: 12.5rem;
-    padding-bottom: 12.5rem;
+    padding-top: 8rem;
+    padding-bottom: 7rem;
   }
   header.masthead .page-heading h1, header.masthead .page-heading .h1,
 header.masthead .site-heading h1,
@@ -11203,7 +11203,7 @@ header.masthead .site-heading .h1 {
 
 .section-heading {
   font-size: 2.25rem;
-  font-weight: 700;
+  font-weight: 50;
   margin-top: 3.75rem;
 }
 
