@@ -1,23 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profesores</title>
-</head>
-<body>
+{% extends "home/index.html" %}
+{% load static %}
+{% block coderhouse_project_content %}
 
-    <h2>Lista de Profesores</h2>
+<header class="masthead" style="background-image: url('../../static/home/assets/img/post-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>Listado de Profesores</h1>
+                    <span class="subheading">My blog CoderHouse</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-    <hr></hr>
-    <ul>
-        {% for profesor in profesors %}
-        <li>
-            {{profesor}}
-        </li>
-        {% endfor %}
-    </ul>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
 
-</body>
-</html>
+            {% for profesor in profesors %}
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <h2 class="post-title">Este es el Profesor: {{ profesor.name }}  {{ profesor.last_name }}</h2>
+                    <h3 class="post-subtitle">Este es su email: - {{ profesor.email }}</h3>
+                    <h3 class="post-subtitle">Esta es su profesión: - {{ profesor.profession }}</h3>
+                </div>
+                <!-- Divider-->
+                <hr class="my-4" />
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
