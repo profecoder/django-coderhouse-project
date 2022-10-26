@@ -1,22 +1,54 @@
 from datetime import datetime
+from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 
+from course.forms import CourseForm
 from course.models import Course
 from course.models import Homework
 
 
-def create_course(request, name: str, code: int):
+def get_courses(request):
+    courses = Course.objects.all()
+    paginator = Paginator(courses, 3)
+    page_number = request.GET.get("page")
+    return paginator.get_page(page_number)
 
-    template = loader.get_template("template_course.html")
 
-    course = Course(name=name, code=code)
-    course.save()  # save into the DB
+def create_course(request):
+    if request.method == "POST":
+        course_form = CourseForm(request.POST)
+        if course_form.is_valid():
+            data = course_form.cleaned_data
+            actual_objects = Course.objects.filter(
+                name=data["name"], code=data["code"]
+            ).count()
+            if actual_objects:
+                messages.error(
+                    request,
+                    f"El curso {data['name']} - {data['code']} ya está creado",
+                )
+            else:
+                course = Course(name=data["name"], code=data["code"])
+                course.save()
+                messages.success(
+                    request,
+                    f"Curso {data['name']} - {data['code']} creado exitosamente!",
+                )
 
-    context_dict = {"course": course}
-    render = template.render(context_dict)
-    return HttpResponse(render)
+            return render(
+                request=request,
+                context={"courses": get_courses(request)},
+                template_name="course/course_list.html",
+            )
+
+    course_form = CourseForm(request.POST)
+    context_dict = {"form": course_form}
+    return render(
+        request=request, context=context_dict, template_name="course/course_form.html"
+    )
 
 
 def create_homework(request, name: str, due_date: str):
@@ -32,13 +64,9 @@ def create_homework(request, name: str, due_date: str):
 
 
 def courses(request):
-    courses = Course.objects.all()
-
-    context_dict = {"courses": courses}
-
     return render(
         request=request,
-        context=context_dict,
+        context={"courses": get_courses(request)},
         template_name="course/course_list.html",
     )
 

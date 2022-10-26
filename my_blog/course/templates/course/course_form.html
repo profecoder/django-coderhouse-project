@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block my_blog_title %}
-Student
+Course
 {% endblock %}
 
 {% block my_blog_header %}
@@ -11,7 +11,7 @@ Student
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
                 <div class="site-heading">
-                    <h1>Listado de Estudiantes</h1>
+                    <h2>Formulario para guardar/editar curso</h2>
                     <span class="subheading">My blog CoderHouse</span>
                 </div>
             </div>
@@ -20,16 +20,14 @@ Student
 </header>
 {% endblock %}
 
-
 {% block my_blog_content %}
-    {% for student in students %}
-        <!-- Post preview-->
-        <div class="post-preview">
-            <h2 class="post-title">Este es el estudiante: {{ student.name }} {{ student.last_name }}</h2>
-            <h3 class="post-subtitle">Este es su email: {{ student.email }}</h3>
-        </div>
-        <!-- Divider-->
-        <hr class="my-4" />
-    {% endfor %}
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Guardar curso" />
+        </form>
+    </div>
+    <!-- Divider-->
+    <hr class="my-4" />
 {% endblock %}
-

@@ -1,39 +1,34 @@
 {% extends "home/index.html" %}
 {% load static %}
-{% block coderhouse_project_content %}
 
-<header class="masthead" style="background-image: url('../../static/home/assets/img/post-bg.jpg')">
-    <div class="container position-relative px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-15 col-lg-16 col-xl-14">
-                <div class="site-heading">
-                    <h1>Listado de Profesores</h1>
-                    <span class="subheading">My blog CoderHouse</span>
+{% block my_blog_title %}
+Profesor
+{% endblock %}
+
+{% block my_blog_header %}
+    <header class="masthead" style="background-image: url('../../static/home/assets/img/post-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-15 col-lg-16 col-xl-14">
+                    <div class="site-heading">
+                        <h1>Listado de Profesores</h1>
+                        <span class="subheading">My blog CoderHouse</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
+{% endblock %}
 
-<!-- Main Content-->
-<div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-            <!-- Post preview-->
-
-            {% for profesor in profesors %}
-                <!-- Post preview-->
-                <div class="post-preview">
-                    <h2 class="post-title">Este es el Profesor: {{ profesor.name }}  {{ profesor.last_name }}</h2>
-                    <h3 class="post-subtitle">Este es su email: - {{ profesor.email }}</h3>
-                    <h3 class="post-subtitle">Esta es su profesión: - {{ profesor.profession }}</h3>
-                </div>
-                <!-- Divider-->
-                <hr class="my-4" />
-            {% endfor %}
-
+{% block my_blog_content %}
+    {% for profesor in profesors %}
+        <!-- Post preview-->
+        <div class="post-preview">
+            <h2 class="post-title">Este es el Profesor: {{ profesor.name }}  {{ profesor.last_name }}</h2>
+            <h3 class="post-subtitle">Este es su email: {{ profesor.email }}</h3>
+            <h3 class="post-subtitle">Esta es su profesión: {{ profesor.profession }}</h3>
         </div>
-    </div>
-</div>
-
+        <!-- Divider-->
+        <hr class="my-4" />
+    {% endfor %}
 {% endblock %}

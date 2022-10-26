@@ -24,13 +24,6 @@ from student.views import create_student
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("home.urls")),
-    path("create_course/<str:name>/<int:code>", create_course),
-    path(
-        "create_profesor/<str:name>/<str:last_name>/<str:email>/<str:profession>",
-        create_profesor,
-    ),
-    path("create_student/<str:name>/<str:last_name>/<str:email>", create_student),
-    path("create_homework/<str:name>/<str:due_date>", create_homework),
     path("course/", include("course.urls")),
     path("student/", include("student.urls")),
     path("profesor/", include("profesor.urls")),

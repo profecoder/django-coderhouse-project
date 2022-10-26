@@ -1,7 +1,11 @@
 {% extends "home/index.html" %}
 {% load static %}
-{% block coderhouse_project_content %}
 
+{% block my_blog_title %}
+Course
+{% endblock %}
+
+{% block my_blog_header %}
 <header class="masthead" style="background-image: url('../../static/home/assets/img/about-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -12,27 +16,50 @@
                 </div>
             </div>
         </div>
+        <a class="button_custom" href="{% url 'course:course-add' %}">Crear nuevo Curso</a>
     </div>
 </header>
+{% endblock %}
 
-<!-- Main Content-->
-<div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-            <!-- Post preview-->
 
-            {% for course in courses %}
-                <!-- Post preview-->
-                <div class="post-preview">
-                    <h2 class="post-title">Este es el curso de {{ course.name }}</h2>
-                    <h3 class="post-subtitle">Que tiene el código - {{ course.code }}</h3>
-                </div>
-                <!-- Divider-->
-                <hr class="my-4" />
-            {% endfor %}
+{% block my_blog_content %}
+{% for course in courses %}
+    <!-- Post preview-->
+    <div class="post-preview">
+        <h2 class="post-title">Este es el curso de {{ course.name }}</h2>
+        <h3 class="post-subtitle">Que tiene el código: {{ course.code }}</h3>
+        <p class="post-meta">
+            Creado por
+            <a href="#!">Start Bootstrap</a> 
+            en {{ course.created_at }}
+        </p>
+    </div>
+    <!-- Divider-->
+    <hr class="my-4" />
+{% endfor %}
+<!--Pagination-->
+<div class="container p-4">
+    <div class="pagination justify-content-center">
+        <span class="step-links">
+            {% if courses.has_previous %}
+                <a href="?page=1">&laquo; first</a> |
+                <a href="?page={{ courses.previous_page_number }}">previous</a> |
+            {% endif %}
 
-        </div>
+            {% if courses.paginator.num_pages > 1 %}
+            <span class="current">
+                Page {{ courses.number }} of {{ courses.paginator.num_pages }} |
+            </span>
+            {% endif %}
+
+            {% if courses.has_next %}
+                <a href="?page={{ courses.next_page_number }}">next</a> |
+                <a href="?page={{ courses.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
 </div>
-
+<!--end of Pagination-->
 {% endblock %}
+
+
