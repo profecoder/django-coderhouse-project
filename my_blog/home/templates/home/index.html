@@ -8,7 +8,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Home</title>
+        <title>
+            {% block my_blog_title %}
+                Home
+            {% endblock %}
+        </title>
         <link rel="icon" type="image/x-icon" href="{% static 'home/assets/favicon.ico' %}" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -37,7 +41,7 @@
                 </div>
             </div>
         </nav>
-        {% block coderhouse_project_content %}
+        {% block my_blog_header %}
         <!-- Page Header-->
         <header class="masthead" style="background-image: url('../../static/home/assets/img/home-bg.jpg')">
             <div class="container position-relative px-4 px-lg-5">
@@ -51,20 +55,65 @@
                 </div>
             </div>
         </header>
+        {% endblock %}
+        <!-- Messages-->
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert {{ message.tags }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                        <!-- Divider-->
+                        <hr class="my-4" />
+                    {% endif %}
+                </div>
+            </div>
+        </div>
         <!-- Main Content-->
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <!-- Post preview-->
+                    {% block my_blog_content %}
 
+                    <!-- Buscador -->
+                    <h2>Buscador de cursos</h2>
+                    <form action="{% url 'home:search' %}" method="GET">
+                        <div>
+                            <input type="text" name="search_param" id="course_code_or_name" placeholder="Buscar.."
+                            {% if search_param %} value="{{ search_param }}" {% endif %}
+                            >
+                            <input type="submit" value="Buscar">
+                            <a style="color: blue" href="{% url 'home:index' %}"><i class="fa fa-undo"></i></a>
+                        </div>
+                    </form>
                     <!-- Divider-->
                     <hr class="my-4" />
-                    <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+
+                    <!-- Si hay resultados en el buscador los presenta -->
+                    {% if courses %}
+                    {% for course in courses %}
+                        <!-- Post preview-->
+                        <div class="post-preview">
+                            <h2 class="post-title">Este es el curso de {{ course.name }}</h2>
+                            <h3 class="post-subtitle">Que tiene el código: {{ course.code }}</h3>
+                            <p class="post-meta">
+                                Creado por
+                                <a href="#!">Start Bootstrap</a> 
+                                en {{ course.created_at }}
+                            </p>
+                        </div>
+                        <!-- Divider-->
+                        <hr class="my-4" />
+                    {% endfor %}
+                    {% endif %}
+                    {% endblock %}
                 </div>
             </div>
         </div>
-        {% endblock %}
         <!-- Footer-->
         <footer class="border-top">
             <div class="container px-4 px-lg-5">
