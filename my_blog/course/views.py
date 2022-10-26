@@ -25,6 +25,7 @@ def create_course(request):
             actual_objects = Course.objects.filter(
                 name=data["name"], code=data["code"]
             ).count()
+            print("actual_objects", actual_objects)
             if actual_objects:
                 messages.error(
                     request,
@@ -47,7 +48,9 @@ def create_course(request):
     course_form = CourseForm(request.POST)
     context_dict = {"form": course_form}
     return render(
-        request=request, context=context_dict, template_name="course/course_form.html"
+        request=request,
+        context=context_dict,
+        template_name="course/course_form.html",
     )
 
 
