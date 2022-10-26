@@ -8,7 +8,7 @@ class CourseForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 "class": "course-name",
-                "placeholder": "Nombre del curso",
+                "placeholder": "Nombre de curso",
                 "required": "True",
             }
         ),

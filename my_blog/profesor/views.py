@@ -1,22 +1,57 @@
-from django.http import HttpResponse
+from django.contrib import messages
 from django.shortcuts import render
-from django.template import loader
 
 from profesor.models import Profesor
+from profesor.forms import ProfesorForm
 
 
-def create_profesor(request, name: str, last_name: str, email: str, profession: str):
+def get_profesors(request):
+    profesors = Profesor.objects.all()
+    return profesors
 
-    template = loader.get_template("template_profesor.html")
 
-    profesor = Profesor(
-        name=name, last_name=last_name, email=email, profession=profession
+def create_profesor(request):
+    if request.method == "POST":
+        profesor_form = ProfesorForm(request.POST)
+        if profesor_form.is_valid():
+            data = profesor_form.cleaned_data
+            actual_objects = Profesor.objects.filter(
+                name=data["name"],
+                last_name=data["last_name"],
+                email=data["email"],
+            ).count()
+            print("actual_objects", actual_objects)
+            if actual_objects:
+                messages.error(
+                    request,
+                    f"El profesor {data['name']} - {data['last_name']} ya está creado",
+                )
+            else:
+                profesor = Profesor(
+                    name=data["name"],
+                    last_name=data["last_name"],
+                    email=data["email"],
+                    profession=data["profession"],
+                )
+                profesor.save()
+                messages.success(
+                    request,
+                    f"Profesor {data['name']} - {data['last_name']} creado exitosamente!",
+                )
+
+            return render(
+                request=request,
+                context={"profesors": get_profesors(request)},
+                template_name="profesor/profesor_list.html",
+            )
+
+    profesor_form = ProfesorForm(request.POST)
+    context_dict = {"form": profesor_form}
+    return render(
+        request=request,
+        context=context_dict,
+        template_name="profesor/profesor_form.html",
     )
-    profesor.save()  # save into the DB
-
-    context_dict = {"profesor": profesor}
-    render = template.render(context_dict)
-    return HttpResponse(render)
 
 
 def profesors(request):
@@ -29,4 +64,3 @@ def profesors(request):
         context=context_dict,
         template_name="profesor/profesor_list.html",
     )
-    
