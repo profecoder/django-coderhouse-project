@@ -18,7 +18,7 @@ git clone https://github.com/profecoder/django-coderhouse-project.git
 
 cd django-coderhouse-project
 
-git checkout class_21_playground_III
+git checkout class_22_pa_I
 ```
 
 ### 3. Crear y activar entorno virtual
