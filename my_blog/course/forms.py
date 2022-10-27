@@ -1,7 +1,10 @@
+from ckeditor.widgets import CKEditorWidget
 from django import forms
 
+from course.models import Course
 
-class CourseForm(forms.Form):
+
+class CourseForm(forms.ModelForm):
     name = forms.CharField(
         label="Nombre del curso",
         required=False,
@@ -13,6 +16,7 @@ class CourseForm(forms.Form):
             }
         ),
     )
+
     code = forms.IntegerField(
         label="Código:",
         required=False,
@@ -24,3 +28,19 @@ class CourseForm(forms.Form):
             }
         ),
     )
+
+    description = forms.CharField(
+        label="Descripción:",
+        required=False,
+        widget=CKEditorWidget(
+            attrs={
+                "class": "course-description",
+                "placeholder": "Descripcion del curso",
+                "required": "True",
+            }
+        ),
+    )
+
+    class Meta:
+        model = Course
+        fields = ["name", "code", "description"]

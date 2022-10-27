@@ -11275,4 +11275,6 @@ header.masthead .site-heading .h1 {
 	top:1px;
 }
 
-        
+.detail_db {
+background-image:url("{%  static 'home/assets/img/about-bg.jpg' %}");
+}

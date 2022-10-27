@@ -1,10 +1,11 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 
 class Course(models.Model):
     name = models.CharField(max_length=40)
     code = models.IntegerField()
-    description = models.TextField()
+    description = RichTextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
