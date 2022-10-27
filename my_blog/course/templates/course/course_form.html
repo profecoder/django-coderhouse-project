@@ -1,12 +1,17 @@
 {% extends "home/index.html" %}
 {% load static %}
 
+{% block extrahead %}
+<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+{{ block.super }}
+{% endblock %}
+
 {% block my_blog_title %}
 Course
 {% endblock %}
 
 {% block my_blog_header %}
-<header class="masthead" style="background-image: url('../../static/home/assets/img/about-bg.jpg')">
+<header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
@@ -24,6 +29,7 @@ Course
     <div>
         <form action="" method="POST">
             {% csrf_token %}
+            {{ form.media }}
             {{ form.as_p }}
             <input type="submit" class="btn btn-primary" value="Guardar curso" />
         </form>
