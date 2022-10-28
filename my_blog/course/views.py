@@ -32,12 +32,7 @@ def course_create(request):
                 name=data["name"], code=data["code"]
             ).count()
             print("actual_objects", actual_objects)
-            if actual_objects:
-                messages.error(
-                    request,
-                    f"El curso {data['name']} - {data['code']} ya está creado",
-                )
-            else:
+            if not actual_objects:
                 course = Course(
                     name=data["name"],
                     code=data["code"],
@@ -48,12 +43,16 @@ def course_create(request):
                     request,
                     f"Curso {data['name']} - {data['code']} creado exitosamente!",
                 )
-
-            return render(
-                request=request,
-                context={"course_list": get_courses(request)},
-                template_name="course/course_list.html",
-            )
+                return render(
+                    request=request,
+                    context={"course_list": get_courses(request)},
+                    template_name="course/course_list.html",
+                )
+            else:
+                messages.error(
+                    request,
+                    f"El curso {data['name']} - {data['code']} ya está creado",
+                )
 
     course_form = CourseForm(request.POST)
     context_dict = {"form": course_form}
