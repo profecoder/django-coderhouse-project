@@ -1,66 +1,62 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.core.exceptions import ValidationError
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from profesor.models import Profesor
 from profesor.forms import ProfesorForm
 
 
-def get_profesors(request):
-    profesors = Profesor.objects.all()
-    return profesors
+class ProfesorListView(ListView):
+    model = Profesor
+    paginate_by = 3
 
 
-def create_profesor(request):
-    if request.method == "POST":
-        profesor_form = ProfesorForm(request.POST)
-        if profesor_form.is_valid():
-            data = profesor_form.cleaned_data
-            actual_objects = Profesor.objects.filter(
-                name=data["name"],
-                last_name=data["last_name"],
-                email=data["email"],
-            ).count()
-            print("actual_objects", actual_objects)
-            if actual_objects:
-                messages.error(
-                    request,
-                    f"El profesor {data['name']} - {data['last_name']} ya está creado",
-                )
-            else:
-                profesor = Profesor(
-                    name=data["name"],
-                    last_name=data["last_name"],
-                    email=data["email"],
-                    profession=data["profession"],
-                )
-                profesor.save()
-                messages.success(
-                    request,
-                    f"Profesor {data['name']} - {data['last_name']} creado exitosamente!",
-                )
+class ProfesorDetailView(DetailView):
+    model = Profesor
+    fields = ["name", "last_name", "email", "profession"]
 
-            return render(
-                request=request,
-                context={"profesors": get_profesors(request)},
-                template_name="profesor/profesor_list.html",
+
+class ProfesorCreateView(CreateView):
+    model = Profesor
+    success_url = reverse_lazy("profesor:profesor-list")
+
+    form_class = ProfesorForm
+
+    def form_valid(self, form):
+        """Filter to avoid duplicate profesors"""
+        data = form.cleaned_data
+        actual_objects = Profesor.objects.filter(
+            name=data["name"],
+            last_name=data["last_name"],
+            email=data["email"],
+        ).count()
+        if actual_objects:
+            messages.error(
+                self.request,
+                f"El Profesor {data['name']} {data['last_name']} | {data['email']} ya está creado",
             )
+            form.add_error("name", ValidationError("Acción no válida"))
+            return super().form_invalid(form)
+        else:
+            messages.success(
+                self.request,
+                f"Profesor: {data['name']} - {data['last_name']}. Creado exitosamente!",
+            )
+            return super().form_valid(form)
 
-    profesor_form = ProfesorForm(request.POST)
-    context_dict = {"form": profesor_form}
-    return render(
-        request=request,
-        context=context_dict,
-        template_name="profesor/profesor_form.html",
-    )
+
+class ProfesorUpdateView(UpdateView):
+    model = Profesor
+    fields = ["name", "last_name", "email", "profession"]
+
+    def get_success_url(self):
+        profesor_id = self.kwargs["pk"]
+        return reverse_lazy("profesor:profesor-detail", kwargs={"pk": profesor_id})
 
 
-def profesors(request):
-    profesors = Profesor.objects.all()
-
-    context_dict = {"profesors": profesors}
-
-    return render(
-        request=request,
-        context=context_dict,
-        template_name="profesor/profesor_list.html",
-    )
+class ProfesorDeleteView(DeleteView):
+    model = Profesor
+    success_url = reverse_lazy("profesor:profesor-list")

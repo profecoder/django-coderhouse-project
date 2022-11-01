@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block my_blog_title %}
-Profesor Create-Update
+Homework Create-Update
 {% endblock %}
 
 {% block my_blog_header %}
@@ -11,11 +11,12 @@ Profesor Create-Update
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
                 <div class="site-heading">
-                    <h2>Formulario para guardar/editar profesor</h2>
+                    <h2>Formulario para guardar/editar engregables</h2>
                     <span class="subheading">My blog CoderHouse</span>
                 </div>
             </div>
         </div>
+        <a class="button_custom" href="{% url 'course:homework-add' %}">Crear nuevo Entregable</a>
     </div>
 </header>
 {% endblock %}
@@ -24,8 +25,9 @@ Profesor Create-Update
     <div>
         <form action="" method="POST">
             {% csrf_token %}
+            {{ form.media }}
             {{ form.as_p }}
-            <input type="submit" class="btn btn-primary" value="Guardar profesor" />
+            <input type="submit" class="btn btn-primary" value="Guardar Entregable" />
         </form>
     </div>
     <!-- Divider-->

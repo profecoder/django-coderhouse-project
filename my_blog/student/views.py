@@ -1,29 +1,62 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.template import loader
+from django.contrib import messages
+from django.core.exceptions import ValidationError
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from student.models import Student
+from student.forms import StudentForm
 
 
-def create_student(request, name: str, last_name: str, email: str):
-
-    template = loader.get_template("template_student.html")
-
-    student = Student(name=name, last_name=last_name, email=email)
-    student.save()  # save into the DB
-
-    context_dict = {"student": student}
-    render = template.render(context_dict)
-    return HttpResponse(render)
+class StudentListView(ListView):
+    model = Student
+    paginate_by = 3
 
 
-def students(request):
-    students = Student.objects.all()
+class StudentDetailView(DetailView):
+    model = Student
+    fields = ["name", "last_name", "email"]
 
-    context_dict = {"students": students}
 
-    return render(
-        request=request,
-        context=context_dict,
-        template_name="student/student_list.html",
-    )
+class StudentCreateView(CreateView):
+    model = Student
+    success_url = reverse_lazy("student:student-list")
+
+    form_class = StudentForm
+
+    def form_valid(self, form):
+        """Filter to avoid duplicate students"""
+        data = form.cleaned_data
+        actual_objects = Student.objects.filter(
+            name=data["name"],
+            last_name=data["last_name"],
+            email=data["email"],
+        ).count()
+        if actual_objects:
+            messages.error(
+                self.request,
+                f"El Estudiente {data['name']} {data['last_name']} | {data['email']} ya está creado",
+            )
+            form.add_error("name", ValidationError("Acción no válida"))
+            return super().form_invalid(form)
+        else:
+            messages.success(
+                self.request,
+                f"Estudiente: {data['name']} - {data['last_name']}. Creado exitosamente!",
+            )
+            return super().form_valid(form)
+
+
+class StudentUpdateView(UpdateView):
+    model = Student
+    fields = ["name", "last_name", "email"]
+
+    def get_success_url(self):
+        student_id = self.kwargs["pk"]
+        return reverse_lazy("student:student-detail", kwargs={"pk": student_id})
+
+
+class StudentDeleteView(DeleteView):
+    model = Student
+    success_url = reverse_lazy("student:student-list")

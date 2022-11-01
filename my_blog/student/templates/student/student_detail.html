@@ -1,0 +1,41 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block my_blog_title %}
+Student detail
+{% endblock %}
+
+{% block my_blog_header %}
+<header class="masthead" style="background-image: url('/static/home/assets/img/post-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>{{ student.name }} {{ student.last_name }}</h1>
+                    <span class="subheading">Detalles del student</span>
+                </div>
+            </div>
+        </div>
+        <a class="button_custom" href="{% url 'student:student-add' %}">Crear nuevo Estudiente</a>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block my_blog_content %}
+<!-- Post preview-->
+<div class="post-preview">
+    <h3 class="post-subtitle">Email: {{ student.email }}</h3>
+    <p style="text-align: center">
+        <a href="{% url 'student:student-update' student.id %}">
+            <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar
+        </a>
+        &ensp; | &ensp;
+        <a href="{% url 'student:student-delete' student.id %}">
+            <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar 
+        </a>
+    </p>
+</div>
+{% endblock %}
+
+

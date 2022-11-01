@@ -19,4 +19,5 @@ class Homework(models.Model):
     is_delivered = models.BooleanField()
 
     def __str__(self):
-        return f"{self.name} | fecha: {self.due_date}"
+        is_delivered = 'Si' if self.is_delivered else 'No'
+        return f"{self.name} | fecha: {self.due_date} | Engregado: {is_delivered}"
