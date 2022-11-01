@@ -1,13 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
-from django.urls import reverse_lazy
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
+from course.forms import CommentForm
 from course.forms import CourseForm
 from course.forms import HomeworkForm
+from course.models import Comment
 from course.models import Course
 from course.models import Homework
 
@@ -19,7 +22,19 @@ class CourseListView(ListView):
 
 class CourseDetailView(DetailView):
     model = Course
+    template_name = "course/course_detail.html"
     fields = ["name", "code", "description"]
+
+    def get(self, request, pk):
+        course = Course.objects.get(id=pk)
+        comments = Comment.objects.filter(course=course).order_by("-updated_at")
+        comment_form = CommentForm()
+        context = {
+            "course": course,
+            "comments": comments,
+            "comment_form": comment_form,
+        }
+        return render(request, self.template_name, context)
 
 
 class CourseCreateView(LoginRequiredMixin, CreateView):
@@ -32,6 +47,7 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         """Filter to avoid duplicate courses"""
         data = form.cleaned_data
+        form.instance.owner = self.request.user
         actual_objects = Course.objects.filter(
             name=data["name"], code=data["code"]
         ).count()
@@ -62,6 +78,24 @@ class CourseUpdateView(LoginRequiredMixin, UpdateView):
 class CourseDeleteView(LoginRequiredMixin, DeleteView):
     model = Course
     success_url = reverse_lazy("course:course-list")
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    def post(self, request, pk):
+        course = get_object_or_404(Course, id=pk)
+        comment = Comment(
+            text=request.POST["comment_text"], owner=request.user, course=course
+        )
+        comment.save()
+        return redirect(reverse("course:course-detail", kwargs={"pk": pk}))
+
+
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
+    model = Comment
+
+    def get_success_url(self):
+        course = self.object.course
+        return reverse("course:course-detail", kwargs={"pk": course.id})
 
 
 class HomeworkListView(ListView):

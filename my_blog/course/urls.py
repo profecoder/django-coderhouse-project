@@ -9,6 +9,9 @@ urlpatterns = [
     path("course/<int:pk>/detail/", views.CourseDetailView.as_view(), name="course-detail"),
     path("course/<int:pk>/update/", views.CourseUpdateView.as_view(), name="course-update"),
     path("course/<int:pk>/delete/", views.CourseDeleteView.as_view(), name="course-delete"),
+    path("comment/<int:pk>/add/", views.CommentCreateView.as_view(), name="comment-create"),
+    path("comment/<int:pk>/delete/", views.CommentDeleteView.as_view(), name="comment-delete"),
+
     path("homeworks", views.HomeworkListView.as_view(), name="homework-list"),
     path("homework/add/", views.HomeworkCreateView.as_view(), name="homework-add"),
     path("homework/<int:pk>/detail/", views.HomeworkDetailView.as_view(), name="homework-detail"),

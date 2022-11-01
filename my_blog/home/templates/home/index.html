@@ -42,7 +42,7 @@
                        
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:user-update' %}">Editar usuario</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión - {{ user.username }}</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión</a></li>
                         {% endif %}
@@ -118,8 +118,8 @@
                             </a>
                             <p class="post-meta">
                                 Creado por
-                                <a href="#!">Start Bootstrap</a> 
-                                en {{ course.created_at }}
+                                <span style="color: #0b4956;" href="">{{ course.owner.username }}</span>
+                                ( {{ course.created_at }} )
                             </p>
                         </div>
                         <!-- Divider-->

@@ -28,22 +28,47 @@ Course detail
     <h3 class="post-subtitle">Código: {{ course.code }}</h3>
     <p class="post-meta">
         Creado por
-        <a href="#!">Start Bootstrap</a> 
-        en {{ course.created_at }}
+        <span style="color: #0b4956;" href="">{{ course.owner.username }}</span>
+        ( {{ course.created_at }} )
         <br>
-        Última fecha de actualización {{ course.updated_at }}
+        Última fecha de actualización ( {{ course.updated_at }} )
     </p>
     <p class="card-text ">{{ course.description|safe }}</p> <!-- ckeditor-->
-    <p style="text-align: center">
-        <a href="{% url 'course:course-update' course.id %}">
-            <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar
-        </a>
-        &ensp; | &ensp;
-        <a href="{% url 'course:course-delete' course.id %}">
-            <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar 
-        </a>
-    </p>
+
+    <!-- Update-Delete link only for the owner -->
+    {% if user == course.owner or user.is_superuser %}
+        <p style="text-align: center">
+            <a href="{% url 'course:course-update' course.id %}">
+                <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar Curso
+            </a>
+            &ensp; | &ensp;
+            <a href="{% url 'course:course-delete' course.id %}">
+                <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar Curso
+            </a>
+        </p>
+    {% endif %}
+    
+    <!-- Divider-->
+    <hr class="my-4" />
+
+    <!-- Comment creation -->
+    <form method="post" action="{% url 'course:comment-create' course.id %}">
+        {% csrf_token %}
+        {{ comment_form }}
+    <input type="submit" value="Publicar comentario">
+    </form>
+    {% if not comments %}
+        <p></p>
+    {% endif %}
+
+    <!-- Comments list -->
+    {% for comment in comments %}
+        <p> {{ comment.text }}
+            ({{ comment.owner.username }} | {{ comment.updated_at }})
+            {% if user == comment.owner or user.is_superuser %}
+            <a href="{% url 'course:comment-delete' comment.id %}"><i class="fa fa-trash" style="color: #881a1a;"></i></a>
+            {% endif %}
+        </p>
+    {% endfor %}
 </div>
 {% endblock %}
-
-
