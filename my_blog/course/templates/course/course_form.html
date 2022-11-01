@@ -1,15 +1,13 @@
 {% extends "home/index.html" %}
 {% load static %}
 
-<!-- ckeditor-->
 {% block extrahead %}
 <script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
 {{ block.super }}
 {% endblock %}
-<!-- ckeditor-->
 
 {% block my_blog_title %}
-Course Create-Update
+Course
 {% endblock %}
 
 {% block my_blog_header %}
@@ -31,7 +29,7 @@ Course Create-Update
     <div>
         <form action="" method="POST">
             {% csrf_token %}
-            {{ form.media }} <!-- ckeditor-->
+            {{ form.media }}
             {{ form.as_p }}
             <input type="submit" class="btn btn-primary" value="Guardar curso" />
         </form>

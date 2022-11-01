@@ -33,7 +33,8 @@ Course detail
         <br>
         Última fecha de actualización {{ course.updated_at }}
     </p>
-    <p class="card-text ">{{ course.description|safe }}</p> <!-- ckeditor-->
+    <!-- <p><textarea readonly rows="2" cols="50" >{{ course.description|safe }}</textarea></p> -->
+    <p class="card-text ">{{ course.description|safe }}</p>
     <p style="text-align: center">
         <a href="{% url 'course:course-update' course.id %}">
             <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar

@@ -95,9 +95,7 @@ def course_update(request, pk: int):
         "form": course_form,
     }
     return render(
-        request=request,
-        context=context_dict,
-        template_name="course/course_form.html",
+        request=request, context=context_dict, template_name="course/course_form.html"
     )
 
 
@@ -148,10 +146,12 @@ from course.models import Course
 class CourseListView(ListView):
     model = Course
     paginate_by = 3
+    template_name = "course/course_list.html"
 
 
 class CourseDetailView(DetailView):
     model = Course
+    template_name = "course/course_detail.html"
     fields = ["name", "code", "description"]
 
 
@@ -163,7 +163,6 @@ class CourseCreateView(CreateView):
     # fields = ["name", "code", "description"]
 
     def form_valid(self, form):
-        """Filter to avoid duplicate courses"""
         data = form.cleaned_data
         actual_objects = Course.objects.filter(
             name=data["name"], code=data["code"]
@@ -185,6 +184,7 @@ class CourseCreateView(CreateView):
 
 class CourseUpdateView(UpdateView):
     model = Course
+    success_url = reverse_lazy("course:course-detail")
     fields = ["name", "code", "description"]
 
     def get_success_url(self):
