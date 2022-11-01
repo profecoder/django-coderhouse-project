@@ -1,0 +1,42 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block my_blog_title %}
+Profesor detail
+{% endblock %}
+
+{% block my_blog_header %}
+<header class="masthead" style="background-image: url('/static/home/assets/img/post-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>{{ profesor.name }} {{ profesor.last_name }}</h1>
+                    <span class="subheading">Detalles del profesor</span>
+                </div>
+            </div>
+        </div>
+        <a class="button_custom" href="{% url 'profesor:profesor-add' %}">Crear nuevo Profesor</a>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block my_blog_content %}
+<!-- Post preview-->
+<div class="post-preview">
+    <h3 class="post-subtitle">Email: {{ profesor.email }}</h3>
+    <h3 class="post-subtitle">Profesión: {{ profesor.profession }}</h3>
+    <p style="text-align: center">
+        <a href="{% url 'profesor:profesor-update' profesor.id %}">
+            <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar
+        </a>
+        &ensp; | &ensp;
+        <a href="{% url 'profesor:profesor-delete' profesor.id %}">
+            <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar 
+        </a>
+    </p>
+</div>
+{% endblock %}
+
+

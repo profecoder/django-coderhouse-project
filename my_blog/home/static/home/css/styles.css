@@ -11278,3 +11278,10 @@ header.masthead .site-heading .h1 {
 .detail_db {
 background-image:url("{%  static 'home/assets/img/about-bg.jpg' %}");
 }
+
+.topbar .topbar-divider {
+  width: 0;
+  border-right: 1px solid #e3e6f0;
+  height: calc(4.375rem - 2rem);
+  margin: auto 1rem;
+}

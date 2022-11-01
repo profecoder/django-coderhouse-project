@@ -2,17 +2,17 @@
 {% load static %}
 
 {% block my_blog_title %}
-Course delete
+Student delete
 {% endblock %}
 
 {% block my_blog_header %}
-<header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
+<header class="masthead" style="background-image: url('/static/home/assets/img/post-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
                 <div class="site-heading">
-                    <h1>{{ course.name }}</h1>
-                    <span class="subheading">Eliminar Curso</span>
+                    <h1>{{ student.name }}</h1>
+                    <span class="subheading">Eliminar Estudiente</span>
                 </div>
             </div>
         </div>
@@ -23,12 +23,12 @@ Course delete
 
 {% block my_blog_content %}
 
-<h1>Estás seguro de eliminar el Curso: {{ course.name }}?</h1>
+<h1>Estás seguro de eliminar el Estudiente: {{ student.name }}?</h1>
 
 <form action="" method="POST">
     {% csrf_token %}
     <input class="btn btn-danger" type="submit" value="Si, eliminar.">
-    <a class="btn btn-primary" href="{% url 'course:course-list' %}" >Cancelar</a>
+    <a class="btn btn-primary" href="{% url 'student:student-list' %}" >Cancelar</a>
 </form>
 
 {% endblock %}

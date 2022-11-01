@@ -1,25 +1,28 @@
 from django import forms
 
+from profesor.models import Profesor
 
-class ProfesorForm(forms.Form):
+class ProfesorForm(forms.ModelForm):
     name = forms.CharField(
         label="Nombre del profesor",
+        max_length=40,
         required=False,
         widget=forms.TextInput(
             attrs={
                 "class": "profesor-name",
-                "placeholder": "Nombre de profesor",
+                "placeholder": "Nombre del profesor",
                 "required": "True",
             }
         ),
     )
     last_name = forms.CharField(
         label="Apellido del profesor",
+        max_length=40,
         required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "profesor-las-name",
-                "placeholder": "Apellido de profesor",
+                "class": "profesor-last-name",
+                "placeholder": "Apellido del profesor",
                 "required": "True",
             }
         ),
@@ -37,6 +40,7 @@ class ProfesorForm(forms.Form):
     )
     profession = forms.CharField(
         label="Profesión:",
+        max_length=40,
         required=False,
         widget=forms.TextInput(
             attrs={
@@ -46,3 +50,7 @@ class ProfesorForm(forms.Form):
             }
         ),
     )
+
+    class Meta:
+        model = Profesor
+        fields = ["name", "last_name", "email", "profession"]

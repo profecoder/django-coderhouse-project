@@ -22,12 +22,14 @@ Profesor
 {% endblock %}
 
 {% block my_blog_content %}
-    {% for profesor in profesors %}
+    {% for profesor in profesor_list %}
         <!-- Post preview-->
         <div class="post-preview">
-            <h2 class="post-title">Este es el Profesor: {{ profesor.name }}  {{ profesor.last_name }}</h2>
-            <h3 class="post-subtitle">Este es su email: {{ profesor.email }}</h3>
-            <h3 class="post-subtitle">Esta es su profesión: {{ profesor.profession }}</h3>
+            <a href="{% url 'profesor:profesor-detail' profesor.id %}">
+                <h2 class="post-title">Profesor: {{ profesor.name }}  {{ profesor.last_name }}</h2>
+                <h3 class="post-subtitle">Email: {{ profesor.email }}</h3>
+                <h3 class="post-subtitle">Profesión: {{ profesor.profession }}</h3>
+            </a>
         </div>
         <!-- Divider-->
         <hr class="my-4" />
