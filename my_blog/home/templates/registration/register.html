@@ -1,0 +1,31 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block my_blog_title %}
+Register
+{% endblock %}
+
+{% block my_blog_header %}
+<header class="masthead" style="background-image: url('/static/home/assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>Registrar Nuevo Usuario</h1>
+                    <span class="subheading">My blog CoderHouse</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block my_blog_content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-primary" value="Registrar usuario" />
+</form>
+
+{% endblock %}

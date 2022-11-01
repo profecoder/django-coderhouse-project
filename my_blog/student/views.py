@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from django.views.generic import ListView
@@ -19,7 +20,7 @@ class StudentDetailView(DetailView):
     fields = ["name", "last_name", "email"]
 
 
-class StudentCreateView(CreateView):
+class StudentCreateView(LoginRequiredMixin, CreateView):
     model = Student
     success_url = reverse_lazy("student:student-list")
 
@@ -48,7 +49,7 @@ class StudentCreateView(CreateView):
             return super().form_valid(form)
 
 
-class StudentUpdateView(UpdateView):
+class StudentUpdateView(LoginRequiredMixin, UpdateView):
     model = Student
     fields = ["name", "last_name", "email"]
 
@@ -57,6 +58,6 @@ class StudentUpdateView(UpdateView):
         return reverse_lazy("student:student-detail", kwargs={"pk": student_id})
 
 
-class StudentDeleteView(DeleteView):
+class StudentDeleteView(LoginRequiredMixin, DeleteView):
     model = Student
     success_url = reverse_lazy("student:student-list")

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from django.views.generic import ListView
@@ -21,7 +22,7 @@ class CourseDetailView(DetailView):
     fields = ["name", "code", "description"]
 
 
-class CourseCreateView(CreateView):
+class CourseCreateView(LoginRequiredMixin, CreateView):
     model = Course
     success_url = reverse_lazy("course:course-list")
 
@@ -49,7 +50,7 @@ class CourseCreateView(CreateView):
             return super().form_valid(form)
 
 
-class CourseUpdateView(UpdateView):
+class CourseUpdateView(LoginRequiredMixin, UpdateView):
     model = Course
     fields = ["name", "code", "description"]
 
@@ -58,7 +59,7 @@ class CourseUpdateView(UpdateView):
         return reverse_lazy("course:course-detail", kwargs={"pk": course_id})
 
 
-class CourseDeleteView(DeleteView):
+class CourseDeleteView(LoginRequiredMixin, DeleteView):
     model = Course
     success_url = reverse_lazy("course:course-list")
 
@@ -68,7 +69,7 @@ class HomeworkListView(ListView):
     paginate_by = 4
 
 
-class HomeworkCreateView(CreateView):
+class HomeworkCreateView(LoginRequiredMixin, CreateView):
     model = Homework
     success_url = reverse_lazy("course:homework-list")
 
@@ -98,7 +99,7 @@ class HomeworkDetailView(DetailView):
     fields = ["name", "due_date", "is_delivered"]
 
 
-class HomeworkUpdateView(UpdateView):
+class HomeworkUpdateView(LoginRequiredMixin, UpdateView):
     model = Homework
     fields = ["name", "due_date", "is_delivered"]
 
@@ -107,6 +108,6 @@ class HomeworkUpdateView(UpdateView):
         return reverse_lazy("course:homework-detail", kwargs={"pk": homework_id})
 
 
-class HomeworkDeleteView(DeleteView):
+class HomeworkDeleteView(LoginRequiredMixin, DeleteView):
     model = Homework
     success_url = reverse_lazy("course:homework-list")
