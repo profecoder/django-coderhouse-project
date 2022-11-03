@@ -33,6 +33,15 @@ Course detail
         <br>
         Última fecha de actualización ( {{ course.updated_at }} )
     </p>
+
+    <!-- Image -->
+    {% if course.image %}
+        <div style="text-align: center;">
+            <img height="250px" src="{{ course.image.url }}">
+        </div>
+    {% endif %}
+
+    <!-- Description -->
     <p class="card-text ">{{ course.description|safe }}</p> <!-- ckeditor-->
 
     <!-- Update-Delete link only for the owner -->

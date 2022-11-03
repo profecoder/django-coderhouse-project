@@ -29,7 +29,7 @@ Course Create-Update
 
 {% block my_blog_content %}
     <div>
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.media }} <!-- ckeditor-->
             {{ form.as_p }}

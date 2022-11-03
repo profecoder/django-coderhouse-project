@@ -68,7 +68,7 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
 
 class CourseUpdateView(LoginRequiredMixin, UpdateView):
     model = Course
-    fields = ["name", "code", "description"]
+    fields = ["name", "code", "description", "image"]
 
     def get_success_url(self):
         course_id = self.kwargs["pk"]
