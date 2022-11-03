@@ -37,9 +37,11 @@ class CourseForm(forms.ModelForm):
         widget=CKEditorWidget(),
     )
 
+    image = forms.ImageField()
+
     class Meta:
         model = Course
-        fields = ["name", "code", "description"]
+        fields = ["name", "code", "description", "image"]
 
 
 class CommentForm(forms.Form):

@@ -33,6 +33,15 @@ Course detail
         <br>
         Última fecha de actualización ( {{ course.updated_at }} )
     </p>
+
+    <!-- Image -->
+    {% if course.image %}
+        <div style="text-align: center;">
+            <img height="250px" src="{{ course.image.url }}">
+        </div>
+    {% endif %}
+
+    <!-- Description -->
     <p class="card-text ">{{ course.description|safe }}</p> <!-- ckeditor-->
 
     <!-- Update-Delete link only for the owner -->
@@ -52,7 +61,7 @@ Course detail
     <hr class="my-4" />
 
     <!-- Comment creation -->
-    <form method="post" action="{% url 'course:comment-create' course.id %}">
+    <form method="POST" action="{% url 'course:comment-create' course.id %}">
         {% csrf_token %}
         {{ comment_form }}
     <input type="submit" value="Publicar comentario">
