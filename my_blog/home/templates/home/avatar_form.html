@@ -1,0 +1,31 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block my_blog_title %}
+Avatar Load
+{% endblock %}
+
+{% block my_blog_header %}
+<header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>Cargar Imagen de Avatar</h1>
+                    <span class="subheading">My blog CoderHouse</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block my_blog_content %}
+    <h1>Usuario: {{user.username}} | {{user.first_name}} {{user.last_name}}</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Cargar Imagen</button>
+    </form>
+{% endblock %}

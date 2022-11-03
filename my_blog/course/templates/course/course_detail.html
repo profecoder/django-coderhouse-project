@@ -52,7 +52,7 @@ Course detail
     <hr class="my-4" />
 
     <!-- Comment creation -->
-    <form method="post" action="{% url 'course:comment-create' course.id %}">
+    <form method="POST" action="{% url 'course:comment-create' course.id %}">
         {% csrf_token %}
         {{ comment_form }}
     <input type="submit" value="Publicar comentario">

@@ -58,15 +58,22 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
                             {% if user.is_authenticated %}
-                                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-                                <h2>Bienvenido</h2>
+                                <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                                <h4>Bienvenido</h4>
                             {% else %}
                                 <h1>Clean Blog</h1>
                                 <span class="subheading">A Blog Theme by Start Bootstrap</span>
                             {% endif %}
+                            {% if avatar_url %}
+                                <a href="{% url 'home:avatar-load' %}"><img height="160px" src="{{avatar_url}}"></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
+                <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
+                {% if not avatar_url %}
+                    <a class="button_custom" href="{% url 'home:avatar-load' %}">Cargar Avatar</a>
+                {% endif %}
             </div>
         </header>
         {% endblock %}
