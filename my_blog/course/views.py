@@ -42,7 +42,7 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("course:course-list")
 
     form_class = CourseForm
-    # fields = ["name", "code", "description"]
+    # fields = ["name", "code", "description", "image"]
 
     def form_valid(self, form):
         """Filter to avoid duplicate courses"""
@@ -73,6 +73,9 @@ class CourseUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         course_id = self.kwargs["pk"]
         return reverse_lazy("course:course-detail", kwargs={"pk": course_id})
+
+    def post(self):
+        pass
 
 
 class CourseDeleteView(LoginRequiredMixin, DeleteView):
