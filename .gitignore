@@ -8,7 +8,10 @@ x_*
 db.sqlite3
 static/*
 staticfiles/*
-*/media/*
+media/*
 
 # vs code files
 .vscode
+
+# env settings
+settings.ini

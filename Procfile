@@ -1,1 +1,1 @@
-web: gunicorn coderhouse_project.wsgi
+web: gunicorn coderhouse_project.wsgi --log-file -
