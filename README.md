@@ -1,10 +1,8 @@
-# Instrucciones para ejecutar este proyecto
+# Instrucciones para ejecutar este proyecto en local
 
-- Crear Directorio del proyecto My blog
+- Abrir Git Bash para `Windows` o una terminal para `Linux/Unix`.
 
-### 1. Abrir Git Bash para `Windows` o una terminal para `Linux/Unix`.
-
-### 2. Crear directorio de trabajo para el proyecto de curso 
+- Crear directorio de trabajo para el proyecto de curso 
 ```bash
 cd
 mkdir -p Documents/coder_projects
@@ -21,7 +19,7 @@ cd django-coderhouse-project
 git checkout master
 ```
 
-### 3. Crear y activar entorno virtual
+Crear y activar entorno virtual
 (Windows)
 ```bash
 python -m venv venv
@@ -34,39 +32,94 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 4. Instalar las dependencias del proyecto
+- Crear variables de entorno (GitBash/Linux terminal)
+```bash
+export SECRET_KEY='5jlof$oxhsgbhlamhh+6@f9@8nb#=85h92bih+_hfegr2t6a'
+export DEBUG='True'
+export ALLOWED_HOSTS='*,'
+```
+
+o crear el archivo `my_blog/.env` con el siguente contenido
+```text
+SECRET_KEY=5jlof$oxhsgbhlamhh+6@f9@8nb#=85h92bih+_hfegr2t6a
+DEBUG=True
+ALLOWED_HOSTS=*,
+```
+
+- Instalar las dependencias del proyecto
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Navegamos hacia la carpeta del proyecto `my_blog`
-```bash
-cd my_blog
-```
-
-### 6. Se crean las migraciones que son una "plantilla" para crear la base de datos con la que trabajará nuestro proyecto de Django
-```bash
-python manage.py makemigrations
-```
-
-### 7. Se ejecuta la migración para crear la base de datos con la que trabajará nuestro proyecto de Django
+- Crear base de datos a partir de las migraciones
 ```bash
 python manage.py migrate
 ```
 
-### 8. Se crea el super usuario para nuestro proyecto de Django, **Solo si no se ha creado**
+- Crear super-usuario
 ```bash
 python manage.py createsuperuser
 ```
 Ingrese `Username`, `Email address` y `Password` 
 
-### 9. Se levanta el servidor de Django que expone el servicio por el localhost en el puerto 8000 por defecto `http://127.0.0.1:8000/`
+
+- Crear estáticos
+```bash
+python manage.py collectstatic
+```
+
+- Ejecutar proyecto, el servidor de Django expone el servicio por el localhost en el puerto 8000 por defecto `http://127.0.0.1:8000/`
 ```bash
 python manage.py runserver
 ```
 
-- Es hora de ir al navegador y en una pestaña nueva navegar hacia `http://127.0.0.1:8000/hello-world/` o `http://localhost:8000/hello-world/` para visualizar el Hola Mundo que hicimos durante la clase. Es recomendable ir hacia los demás endpoints (ver `my_blog/urls.py`) creados durante la clase para experimentar con ellos y afianzar los conocimientos vistos. 
+# Instrucciones para desplegar en projecto en Heroku (utilizar GitBash)
 
+Crear cuenta en [Heroku](https://signup.heroku.com/dc)
+
+Instalar Heroku. [Windows](https://devcenter.heroku.com/articles/getting-started-with-python#set-up)
+
+- Logearse (GitBash)
+```bash
+heroku login
+```
+
+## En la rama master del projecto ejecutar los siguiente comandos (GitBash):
+- Crear el app `my-blog-coderhouse-live` en Heroku
+```bash
+heroku create my-blog-coderhouse-live
+```
+
+- Configurar la variables de entorno en Heroku, ejecutar linea a linea
+```bash
+heroku config:set DEBUG_COLLECTSTATIC=1
+heroku config:set DISABLE_COLLECTSTATIC=1
+heroku config:set ALLOWED_HOSTS='.herokuapp.com',
+heroku config:set DEBUG=1
+heroku config:set SECRET_KEY='5jlof$oxhsgbhlamhh+6@f9@^8nb#=85h92bih+_hfegr2^t6a'
+```
+
+- Revisar las configurariones de Heroku que acabamos de ingresar
+```bash
+heroku config
+```
+
+- Desplegar el proyecto en Heroku
+```bash
+git push heroku master
+```
+
+- Configurar la base de datos del projecto Django en Heroku
+```bash
+heroku run bash
+```
+
+- En la bash de heroku ejecutar
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
+ir a https://my-blog-coderhouse-live.herokuapp.com/ para ver el projecto desplegado.
 
 # Comandos útiles para Django
 
