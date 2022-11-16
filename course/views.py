@@ -48,6 +48,15 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
         """Filter to avoid duplicate courses"""
         data = form.cleaned_data
         form.instance.owner = self.request.user
+        print(self.request.user.is_staff)
+        if not self.request.user.is_staff:
+            messages.error(
+                self.request,
+                f"el ususario no es superadmin",
+            )
+            form.add_error("name", ValidationError("Acción no válida"))
+            return super().form_invalid(form)
+
         actual_objects = Course.objects.filter(
             name=data["name"], code=data["code"]
         ).count()

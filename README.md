@@ -32,6 +32,15 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
+- Para generar una SECRET_KEY:
+```bash
+python manage.py shell
+```
+```bash
+>>> from django.core.management.utils import get_random_secret_key
+>>> print(get_random_secret_key())
+```
+
 - Crear variables de entorno (GitBash/Linux terminal)
 ```bash
 export SECRET_KEY='5jlof$oxhsgbhlamhh+6@f9@8nb#=85h92bih+_hfegr2t6a'

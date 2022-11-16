@@ -27,15 +27,20 @@ Course Create-Update
 </header>
 {% endblock %}
 
+
 {% block my_blog_content %}
-    <div>
-        <form action="" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.media }} <!-- ckeditor-->
-            {{ form.as_p }}
-            <input type="submit" class="btn btn-primary" value="Guardar curso" />
-        </form>
-    </div>
-    <!-- Divider-->
-    <hr class="my-4" />
+    {% if user.is_staff %}
+        <div>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }} <!-- ckeditor-->
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-primary" value="Guardar curso" />
+            </form>
+        </div>
+        <!-- Divider-->
+        <hr class="my-4" />
+    {% else %}
+        <h1>Esta acción es permitida solo para administradores</h1>
+    {% endif %}
 {% endblock %}
